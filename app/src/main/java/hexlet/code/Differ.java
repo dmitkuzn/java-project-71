@@ -6,7 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Differ {
     public static String generate(String filePath1, String filePath2) throws Exception {
@@ -19,8 +21,10 @@ public class Differ {
 
             ObjectMapper objectMapper = new ObjectMapper();
 
-            Map<String, Object> map1 = objectMapper.readValue(fileContent1, new TypeReference<Map<String, Object>>() {});
-            Map<String, Object> map2 = objectMapper.readValue(fileContent2, new TypeReference<Map<String, Object>>() {});
+            Map<String, Object> map1 = objectMapper.readValue(fileContent1,
+                                        new TypeReference<Map<String, Object>>() { });
+            Map<String, Object> map2 = objectMapper.readValue(fileContent2,
+                                        new TypeReference<Map<String, Object>>() { });
 
             Set<String> allKeys = new TreeSet<>();
             allKeys.addAll(map1.keySet());
