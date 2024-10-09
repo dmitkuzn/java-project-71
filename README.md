@@ -13,3 +13,7 @@
 ## Comparing yml files (step 7):
 
 ![step8.png](app%2Fassets%2Fstep8.png)
+
+## Comparing json files (step 8):
+
+![step9.png](app%2Fassets%2Fstep9.png)

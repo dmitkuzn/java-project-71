@@ -12,8 +12,9 @@ import java.util.concurrent.Callable;
             version = "gendiff v.0.0.1")
 public class App implements Callable {
 
-    @Option(names = { "-f", "--format" }, paramLabel = "format", description = "output format [default: stylish]")
-    String outputFormat;
+    @Option(names = { "-f", "--format" }, defaultValue = "stylish", paramLabel = "format",
+                        description = "output format [default: stylish]")
+    String formatName;
     @Parameters(index = "0", defaultValue = "", paramLabel = "filepath1", description = "path to first file")
     String filePath1;
     @Parameters(index = "1", defaultValue = "", paramLabel = "filepath2", description = "path to second file")
@@ -21,7 +22,7 @@ public class App implements Callable {
 
     @Override
     public String call() throws Exception {
-        System.out.println(Differ.generate(filePath1, filePath2));
+        System.out.println(Differ.generate(filePath1, filePath2, formatName));
         return "Executed";
     }
 

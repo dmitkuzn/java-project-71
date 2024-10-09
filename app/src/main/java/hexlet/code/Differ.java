@@ -9,9 +9,10 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Objects;
 
 public class Differ {
-    public static String generate(String filePath1, String filePath2) throws Exception {
+    public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
         Path absFilePath1 = Paths.get(filePath1).toAbsolutePath().normalize();
         Path absFilePath2 = Paths.get(filePath2).toAbsolutePath().normalize();
         StringBuilder diffResult = new StringBuilder("");
@@ -26,6 +27,7 @@ public class Differ {
             } else if (absFilePath1.toString().endsWith(".yml") || absFilePath1.toString().endsWith(".yaml")) {
                 objectMapper = new ObjectMapper(new YAMLFactory());
             } else {
+                System.out.println("Unknown file extension!");
                 return null;
             }
             Parser parser = new Parser(objectMapper);
@@ -39,25 +41,26 @@ public class Differ {
             // Сравниваем значения по каждому ключу
             diffResult.append("{\n");
             for (String key : allKeys) {
-                Object value1 = map1.get(key);
-                Object value2 = map2.get(key);
-
-                if (value1 != null && value2 != null && value1.equals(value2)) {
-                    // Ключ и значение одинаковы в обоих файлах
-                    diffResult.append("    ").append(key).append(": ").append(value1).append("\n");
+                boolean inMap1 = map1.containsKey(key);
+                boolean inMap2 = map2.containsKey(key);
+                if (inMap1 && !inMap2) {
+                    diffResult.append(String.format("  - %s: %s\n", key, map1.get(key)));
+                } else if (!inMap1 && inMap2) {
+                    diffResult.append(String.format("  + %s: %s\n", key, map2.get(key)));
                 } else {
-                    if (value1 != null) {
-                        // Ключ присутствует только в первом файле или значения разные
-                        diffResult.append("  - ").append(key).append(": ").append(value1).append("\n");
-                    }
-                    if (value2 != null) {
-                        // Ключ присутствует только во втором файле или значения разные
-                        diffResult.append("  + ").append(key).append(": ").append(value2).append("\n");
+                    Object val1 = map1.get(key);
+                    Object val2 = map2.get(key);
+                    if (!Objects.equals(val1, val2)) {
+                        diffResult.append(String.format("  - %s: %s\n", key, val1));
+                        diffResult.append(String.format("  + %s: %s\n", key, val2));
+                    } else {
+                        diffResult.append(String.format("    %s: %s\n", key, val1));
                     }
                 }
             }
             diffResult.append("}");
         } else {
+            System.out.println("One or Bth files not found!");
             return null;
         }
         return diffResult.toString();
