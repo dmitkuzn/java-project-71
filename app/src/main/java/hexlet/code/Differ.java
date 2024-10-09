@@ -1,7 +1,7 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,16 +15,23 @@ public class Differ {
         Path absFilePath1 = Paths.get(filePath1).toAbsolutePath().normalize();
         Path absFilePath2 = Paths.get(filePath2).toAbsolutePath().normalize();
         StringBuilder diffResult = new StringBuilder("");
+
         if (Files.exists(absFilePath1) && Files.exists(absFilePath2)) {
             String fileContent1 = Files.readString(absFilePath1);
             String fileContent2 = Files.readString(absFilePath2);
 
-            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectMapper objectMapper;
+            if (absFilePath1.toString().endsWith(".json")) {
+                objectMapper = new ObjectMapper();
+            } else if (absFilePath1.toString().endsWith(".yml") || absFilePath1.toString().endsWith(".yaml")) {
+                objectMapper = new ObjectMapper(new YAMLFactory());
+            } else {
+                return null;
+            }
+            Parser parser = new Parser(objectMapper);
 
-            Map<String, Object> map1 = objectMapper.readValue(fileContent1,
-                                        new TypeReference<Map<String, Object>>() { });
-            Map<String, Object> map2 = objectMapper.readValue(fileContent2,
-                                        new TypeReference<Map<String, Object>>() { });
+            Map<String, Object> map1 = parser.parse(fileContent1);
+            Map<String, Object> map2 = parser.parse(fileContent2);
 
             Set<String> allKeys = new TreeSet<>();
             allKeys.addAll(map1.keySet());

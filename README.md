@@ -6,6 +6,10 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/dmitkuzn/java-project-71/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/dmitkuzn/java-project-71/actions)
 
-## Comparing files (step 6):
+## Comparing json files (step 6):
 
 ![step6.png](app%2Fassets%2Fstep6.png)
+
+## Comparing yml files (step 7):
+
+![step8.png](app%2Fassets%2Fstep8.png)
