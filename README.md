@@ -14,6 +14,14 @@
 
 ![step8.png](app%2Fassets%2Fstep8.png)
 
-## Comparing json files (step 8):
+## Comparing json files (step 9):
 
 ![step9.png](app%2Fassets%2Fstep9.png)
+
+## Comparing json files - plain (step 10):
+
+![step10.png](app%2Fassets%2Fstep10.png)
+
+## Comparing json files - json (step 11):
+
+![step11.png](app%2Fassets%2Fstep11.png)

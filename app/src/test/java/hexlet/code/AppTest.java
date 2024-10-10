@@ -44,4 +44,22 @@ public class AppTest {
         String successResult = readFixture("success.txt");
         assertEquals(successResult, diff);
     }
+
+    @Test
+    public void testJSONDiffer10Plain() throws Exception {
+        String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
+                getFixturePath("file9_2.json").toString(),
+                "plain");
+        String successResult = readFixture("success10.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testJSONDiffer11Json() throws Exception {
+        String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
+                getFixturePath("file9_2.json").toString(),
+                "json");
+        String successResult = readFixture("success11.txt");
+        assertEquals(successResult, diff);
+    }
 }

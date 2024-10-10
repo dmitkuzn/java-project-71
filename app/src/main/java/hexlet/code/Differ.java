@@ -10,13 +10,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
+
+import hexlet.code.formatters.Formatter;
+import hexlet.code.formatters.FormatterFactory;
+
 
 public class Differ {
     public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
         Path absFilePath1 = Paths.get(filePath1).toAbsolutePath().normalize();
         Path absFilePath2 = Paths.get(filePath2).toAbsolutePath().normalize();
-        StringBuilder diffResult = new StringBuilder("");
 
+        List<DiffNode> diffNodes = new ArrayList<>();
         if (Files.exists(absFilePath1) && Files.exists(absFilePath2)) {
             String fileContent1 = Files.readString(absFilePath1);
             String fileContent2 = Files.readString(absFilePath2);
@@ -38,31 +44,29 @@ public class Differ {
             Set<String> allKeys = new TreeSet<>();
             allKeys.addAll(map1.keySet());
             allKeys.addAll(map2.keySet());
-            // Сравниваем значения по каждому ключу
-            diffResult.append("{\n");
+
             for (String key : allKeys) {
                 boolean inMap1 = map1.containsKey(key);
                 boolean inMap2 = map2.containsKey(key);
                 if (inMap1 && !inMap2) {
-                    diffResult.append(String.format("  - %s: %s\n", key, map1.get(key)));
+                    diffNodes.add(new DiffNode(key, DiffNode.Status.REMOVED, map1.get(key), null));
                 } else if (!inMap1 && inMap2) {
-                    diffResult.append(String.format("  + %s: %s\n", key, map2.get(key)));
+                    diffNodes.add(new DiffNode(key, DiffNode.Status.ADDED, null, map2.get(key)));
                 } else {
                     Object val1 = map1.get(key);
                     Object val2 = map2.get(key);
                     if (!Objects.equals(val1, val2)) {
-                        diffResult.append(String.format("  - %s: %s\n", key, val1));
-                        diffResult.append(String.format("  + %s: %s\n", key, val2));
+                        diffNodes.add(new DiffNode(key, DiffNode.Status.UPDATED, val1, val2));
                     } else {
-                        diffResult.append(String.format("    %s: %s\n", key, val1));
+                        diffNodes.add(new DiffNode(key, DiffNode.Status.UNCHANGED, val1, val2));
                     }
                 }
             }
-            diffResult.append("}");
         } else {
-            System.out.println("One or Bth files not found!");
+            System.out.println("One or more files not found!");
             return null;
         }
-        return diffResult.toString();
+        Formatter formatter = FormatterFactory.getFormatter(formatName);
+        return formatter.format(diffNodes);
     }
 }
