@@ -19,6 +19,9 @@ dependencies {
     annotationProcessor 'info.picocli:picocli-codegen:4.7.6'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.18.0'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
 }
 
 compileJava {
@@ -42,5 +45,14 @@ jacocoTestReport {
     reports {
         xml.required = true
         html.required = true
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/*Generated*.class',
+                    '**/App.class'
+            ])
+        }))
     }
 }

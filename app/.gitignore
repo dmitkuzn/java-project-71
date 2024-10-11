@@ -1,4 +1,5 @@
 .gradle
+.Makefile.swp
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/

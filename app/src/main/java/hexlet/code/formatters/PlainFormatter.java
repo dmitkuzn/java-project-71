@@ -28,25 +28,21 @@ public class PlainFormatter implements Formatter {
                     // Nothing
                     break;
                 default:
-                    throw new IllegalArgumentException("Unknown status: " + node.getStatus());
+                    System.out.println("Unknown status: " + node.getStatus());
             }
         }
         return joiner.toString();
     }
 
     private String formatValue(Object value) {
-        if (isComplexValue(value)) {
+        if (value == null) {
+            return "null";
+        } else if (value instanceof Map<?, ?> || value instanceof List<?>) {
             return "[complex value]";
         } else if (value instanceof String) {
             return "'" + value + "'";
-        } else if (value == null) {
-            return "null";
         } else {
             return value.toString();
         }
-    }
-
-    private boolean isComplexValue(Object value) {
-        return value instanceof Map<?, ?> || value instanceof List<?>;
     }
 }
