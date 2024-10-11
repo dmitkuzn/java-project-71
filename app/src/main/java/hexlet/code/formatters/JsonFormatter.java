@@ -9,7 +9,9 @@ import java.util.List;
  * @author dk
  */
 public class JsonFormatter implements Formatter {
-
+    /**
+     * Преобразует список List<DiffNode> в представление JSON и выводит его в человекочитаемом виде.
+     */
     @Override
     public String format(List<DiffNode> diffNodes) {
         try {

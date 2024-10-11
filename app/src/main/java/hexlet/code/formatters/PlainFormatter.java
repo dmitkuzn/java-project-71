@@ -11,6 +11,13 @@ import java.util.StringJoiner;
  * @author dk
  */
 public class PlainFormatter implements Formatter {
+
+    /**
+     * Преобразует список List<DiffNode> в представление plain:
+     * Property 'chars2' was updated. From [complex value] to false
+     * Property 'checked' was updated. From false to true
+     * Property 'default' was updated. From null to [complex value]
+     */
     @Override
     public String format(List<DiffNode> diffNodes) {
         StringJoiner joiner = new StringJoiner("\n");
