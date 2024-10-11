@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
-public class Parser {
+public final class Parser {
     private ObjectMapper objectMapper;
 
     public Parser(ObjectMapper objectMapper) {
