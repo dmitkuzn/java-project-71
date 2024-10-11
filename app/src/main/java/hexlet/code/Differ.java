@@ -18,6 +18,11 @@ import hexlet.code.formatters.FormatterFactory;
 
 
 public class Differ {
+
+    public static String generate(String filePath1, String filePath2) throws Exception {
+        return Differ.generate(filePath1, filePath2, "stylish");
+    }
+
     public static String generate(String filePath1, String filePath2, String formatName) throws Exception {
         Path absFilePath1 = Paths.get(filePath1).toAbsolutePath().normalize();
         Path absFilePath2 = Paths.get(filePath2).toAbsolutePath().normalize();

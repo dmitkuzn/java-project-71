@@ -28,6 +28,14 @@ public class AppTest {
     }
 
     @Test
+    public void testJSONDifferWithOutFormat() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.json").toString(),
+                getFixturePath("file2.json").toString());
+        String successResult = readFixture("success.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
     public void testJSONDiffer2() throws Exception {
         String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
                                         getFixturePath("file9_2.json").toString(),
