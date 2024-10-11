@@ -9,6 +9,15 @@ import java.util.List;
  */
 public class StylishFormatter implements Formatter {
 
+    /**
+     * Преобразует список List<DiffNode> в представление stylish:
+     * {
+     *     chars1: [a, b, c]
+     *   - chars2: [d, e, f]
+     *   + chars2: false
+     *   - checked: false.
+     * }
+     */
     @Override
     public String format(List<DiffNode> diffNodes) {
         StringBuilder result = new StringBuilder("{\n");
