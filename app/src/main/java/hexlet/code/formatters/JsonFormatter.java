@@ -4,6 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.DiffNode;
 import java.util.List;
 
+/**
+ * Класс {@code JsonFormatter} предоставляет метод для сериализации данных в JSON.
+ * @author dk
+ */
 public class JsonFormatter implements Formatter {
 
     @Override

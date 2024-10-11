@@ -3,6 +3,10 @@ package hexlet.code.formatters;
 import hexlet.code.DiffNode;
 import java.util.List;
 
+/**
+ * Класс {@code PlainFormatter} предоставляет метод для вывод данных в stylish формате.
+ * @author dk
+ */
 public class StylishFormatter implements Formatter {
 
     @Override

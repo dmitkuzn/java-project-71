@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
 
+/**
+ * Класс {@code PlainFormatter} предоставляет метод для вывод данных в plain формате.
+ * @author dk
+ */
 public class PlainFormatter implements Formatter {
     @Override
     public String format(List<DiffNode> diffNodes) {
