@@ -1,9 +1,9 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DiffNode;
+import hexlet.code.DiffTree;
 
 import java.util.List;
 
 public interface Formatter {
-    String format(List<DiffNode> diffNodes);
+    String format(List<DiffTree> diffTrees);
 }

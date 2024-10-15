@@ -6,8 +6,6 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Objects;
-import java.util.ArrayList;
 import java.util.List;
 
 import hexlet.code.formatters.Formatter;
@@ -29,8 +27,6 @@ public class Differ {
             return null;
         }
 
-        List<DiffNode> diffNodes = new ArrayList<>();
-
         Map<String, Object> map1 = Parser.parse(absFilePath1);
         Map<String, Object> map2 = Parser.parse(absFilePath2);
 
@@ -38,25 +34,9 @@ public class Differ {
         allKeys.addAll(map1.keySet());
         allKeys.addAll(map2.keySet());
 
-        for (String key : allKeys) {
-            boolean inMap1 = map1.containsKey(key);
-            boolean inMap2 = map2.containsKey(key);
-            if (inMap1 && !inMap2) {
-                diffNodes.add(new DiffNode(key, DiffNode.Status.REMOVED, map1.get(key), null));
-            } else if (!inMap1 && inMap2) {
-                diffNodes.add(new DiffNode(key, DiffNode.Status.ADDED, null, map2.get(key)));
-            } else {
-                Object val1 = map1.get(key);
-                Object val2 = map2.get(key);
-                if (!Objects.equals(val1, val2)) {
-                    diffNodes.add(new DiffNode(key, DiffNode.Status.UPDATED, val1, val2));
-                } else {
-                    diffNodes.add(new DiffNode(key, DiffNode.Status.UNCHANGED, val1, val2));
-                }
-            }
-        }
+        List<DiffTree> diffTrees = DiffTree.buildDiffTree(allKeys, map1, map2);
 
         Formatter formatter = FormatterFactory.getFormatter(formatName);
-        return formatter.format(diffNodes);
+        return formatter.format(diffTrees);
     }
 }

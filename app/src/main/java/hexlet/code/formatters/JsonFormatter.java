@@ -1,7 +1,7 @@
 package hexlet.code.formatters;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hexlet.code.DiffNode;
+import hexlet.code.DiffTree;
 import java.util.List;
 
 /**
@@ -13,9 +13,9 @@ public class JsonFormatter implements Formatter {
      * Преобразует список List<DiffNode> в представление JSON и выводит его в человекочитаемом виде.
      */
     @Override
-    public String format(List<DiffNode> diffNodes) {
+    public String format(List<DiffTree> diffTrees) {
         try {
-            return (new ObjectMapper()).writerWithDefaultPrettyPrinter().writeValueAsString(diffNodes);
+            return (new ObjectMapper()).writerWithDefaultPrettyPrinter().writeValueAsString(diffTrees);
         } catch (Exception e) {
             System.out.println("Serializarion error to JSON: " + e.getMessage());
         }

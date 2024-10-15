@@ -1,6 +1,6 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DiffNode;
+import hexlet.code.DiffTree;
 import java.util.List;
 
 /**
@@ -19,9 +19,9 @@ public class StylishFormatter implements Formatter {
      * }
      */
     @Override
-    public String format(List<DiffNode> diffNodes) {
+    public String format(List<DiffTree> diffTrees) {
         StringBuilder result = new StringBuilder("{\n");
-        for (DiffNode node : diffNodes) {
+        for (DiffTree node : diffTrees) {
             switch (node.getStatus()) {
                 case ADDED:
                     result.append("  + ").append(node.getKey()).append(": ")

@@ -1,6 +1,6 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DiffNode;
+import hexlet.code.DiffTree;
 
 import java.util.List;
 import java.util.Map;
@@ -19,9 +19,9 @@ public class PlainFormatter implements Formatter {
      * Property 'default' was updated. From null to [complex value]
      */
     @Override
-    public String format(List<DiffNode> diffNodes) {
+    public String format(List<DiffTree> diffTrees) {
         StringJoiner joiner = new StringJoiner("\n");
-        for (DiffNode node : diffNodes) {
+        for (DiffTree node : diffTrees) {
             String property = node.getKey();
             switch (node.getStatus()) {
                 case ADDED:

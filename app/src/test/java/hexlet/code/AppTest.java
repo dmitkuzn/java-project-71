@@ -19,13 +19,85 @@ public class AppTest {
     }
 
     @Test
-    public void testJSONDiffer() throws Exception {
+    public void testJSONDifferPlain() throws Exception {
         String diff = Differ.generate(getFixturePath("file1.json").toString(),
                                         getFixturePath("file2.json").toString(),
-                                        "");
+                                        "plain");
+        String successResult = readFixture("success_plain.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testYAMLDifferPlain() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.yml").toString(),
+                                        getFixturePath("file2.yml").toString(),
+                                        "plain");
+        String successResult = readFixture("success_plain.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testJSONDifferStylish() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.json").toString(),
+                                        getFixturePath("file2.json").toString(),
+                                        "stylish");
+        String successResult = readFixture("success_stylish.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testYAMLDifferStylish() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.yml").toString(),
+                                        getFixturePath("file2.yml").toString(),
+                                        "stylish");
+        String successResult = readFixture("success_stylish.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testJSONDifferJSON() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.json").toString(),
+                                        getFixturePath("file2.json").toString(),
+                                        "json");
+        String successResult = readFixture("success_json.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testYAMLDifferJSON() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.yml").toString(),
+                                        getFixturePath("file2.yml").toString(),
+                                        "json");
+        String successResult = readFixture("success_json.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testJSONDifferDefault() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.json").toString(),
+                getFixturePath("file2.json").toString());
+        String successResult = readFixture("success_stylish.txt");
+        assertEquals(successResult, diff);
+    }
+
+    @Test
+    public void testYAMLDifferDefault() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.yml").toString(),
+                getFixturePath("file2.yml").toString());
+        String successResult = readFixture("success_stylish.txt");
+        assertEquals(successResult, diff);
+    }
+
+/*
+    @Test
+    public void testJSONDifferPlain() throws Exception {
+        String diff = Differ.generate(getFixturePath("file1.json").toString(),
+                getFixturePath("file2.json").toString(),
+                "");
         String successResult = readFixture("success.txt");
         assertEquals(successResult, diff);
     }
+
 
     @Test
     public void testJSONDifferWithOutFormat() throws Exception {
@@ -40,7 +112,7 @@ public class AppTest {
         String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
                                         getFixturePath("file9_2.json").toString(),
                                         "");
-        String successResult = readFixture("success9.txt");
+        String successResult = readFixture("success_stylish.txt");
         assertEquals(successResult, diff);
     }
 
@@ -58,7 +130,7 @@ public class AppTest {
         String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
                 getFixturePath("file9_2.json").toString(),
                 "plain");
-        String successResult = readFixture("success10.txt");
+        String successResult = readFixture("success_plain.txt");
         assertEquals(successResult, diff);
     }
 
@@ -67,7 +139,7 @@ public class AppTest {
         String diff = Differ.generate(getFixturePath("file9_1.json").toString(),
                 getFixturePath("file9_2.json").toString(),
                 "json");
-        String successResult = readFixture("success11.txt");
+        String successResult = readFixture("success_json.txt");
         assertEquals(successResult, diff);
-    }
+    }*/
 }
